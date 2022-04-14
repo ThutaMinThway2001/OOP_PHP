@@ -1,17 +1,41 @@
 <?php
-    //parent
-    class Team{
-        public function money(){
-            var_dump("Team's Money");
+
+    class Collection{
+
+        protected array $items;
+
+        public function __construct($items)
+        {
+            $this->items = $items;
         }
-    }
-    //child
-    class Department extends Team{
-        public function useMoney(){
-            var_dump("Use Money");
+
+        public function sum($key){
+            return array_sum(array_column($this->items, $key));
         }
     }
 
-    (new Department())->money();
+    class VideosCollection extends Collection{
+        public function length(){
+            return $this->sum('length');
+        }
+    }
 
+    class Video{
+        public $title;
+        public $length;
+
+        public function __construct($title, $length)
+        {
+            $this->title = $title;
+            $this->length = $length;
+        }
+    }
+
+    $video = new VideosCollection([
+        new Video('video one', 100),
+        new Video('video two', 100),
+        new Video('video three', 100),
+    ]);
+
+    echo $video->length();
 ?>
