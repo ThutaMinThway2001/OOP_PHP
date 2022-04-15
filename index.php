@@ -1,35 +1,44 @@
-<?php 
+<?php
 
-abstract class AchievementType{
+//parent
+abstract class Fruit{
+
+    protected $color;
+
+    public function __construct($color)
+    {
+        $this->color = $color;
+    }
+
+    abstract public function name();
+
+}
+
+//child 
+class Banana extends Fruit{
+
     public function name(){
-        $class = (new ReflectionClass($this))->getShortName();
-
-        return trim(preg_replace('/[A-Z]/' , ' $0', $class));
+        return 'this is banana.';
     }
 
-    public function icon(){ 
-        return strtolower(str_replace(' ', '-', $this->name())). '.png';
-    }
-
-    abstract public function qualifier($user);
 }
 
-class FirstThousandPoints extends AchievementType
-{
-    public function qualifier($user)
-    {
-        
+//child
+class Apple extends Fruit{
+
+    public function name(){
+        return 'this is apple.';
     }
+
 }
 
-class FirstBestAnswer extends AchievementType
-{
-    public function qualifier($user)
-    {
-        
-    }
-}
-$achievement = new FirstBestAnswer();
+$fruit = new Banana('yellow');
+var_dump($fruit);
 
-echo $achievement->icon();
+$fruit = new Apple('red');
+var_dump($fruit);
+
+// $fruit = new Fruit();
+// var_dump($fruit->name());
+
 ?>
