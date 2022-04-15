@@ -1,17 +1,35 @@
-<?php
-    //parent
-    class Team{
-        public function money(){
-            var_dump("Team's Money");
-        }
-    }
-    //child
-    class Department extends Team{
-        public function useMoney(){
-            var_dump("Use Money");
-        }
+<?php 
+
+abstract class AchievementType{
+    public function name(){
+        $class = (new ReflectionClass($this))->getShortName();
+
+        return trim(preg_replace('/[A-Z]/' , ' $0', $class));
     }
 
-    (new Department())->money();
+    public function icon(){ 
+        return strtolower(str_replace(' ', '-', $this->name())). '.png';
+    }
 
+    abstract public function qualifier($user);
+}
+
+class FirstThousandPoints extends AchievementType
+{
+    public function qualifier($user)
+    {
+        
+    }
+}
+
+class FirstBestAnswer extends AchievementType
+{
+    public function qualifier($user)
+    {
+        
+    }
+}
+$achievement = new FirstBestAnswer();
+
+echo $achievement->icon();
 ?>
